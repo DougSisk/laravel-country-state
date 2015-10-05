@@ -16,10 +16,14 @@ class CountryState
 
         if ($countries = config('countrystate.limitCountries')) {
             foreach ($countries as $code) {
-                $this->countries[$code] = $this->loader->loadCountry($code);
+                $this->countries[$code] = $this->loader->loadCountry($code)->getShortName();
             }
         } else {
-            $this->countries = $this->loader->loadCountries();
+            $countries = $this->loader->loadCountries();
+
+            foreach ($countries as $country) {
+                $this->countries[$country->getAlpha2Code()] = $country->getShortName();
+            }
         }
         
         if ($preLoad = config('countrystate.preloadCountryStates')) {
