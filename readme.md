@@ -53,7 +53,7 @@ To get an array of countries:
 $countries = CountryState::getCountries();
 ```
 
-The array keys will be the countries' 2 letter ISO code and the values will be an instance of `Phine\Country\Country`.
+The array keys will be the countries' 2 letter ISO code and the values will be the countries' English name.
 
 
 To get an array of a country's states, simply pass the country's 2 letter ISO code:
