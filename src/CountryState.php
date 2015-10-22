@@ -43,6 +43,21 @@ class CountryState
         return $this->findCountryStates($country);
     }
 
+    public function getStateName($lookFor, $country = null)
+    {
+        if ($country) {
+            if (isset($this->states[$country][$lookFor])) {
+                return $this->states[$country][$lookFor];
+            }
+        }
+
+        foreach ($this->states as $country) {
+            if (isset($this->states[$country][$lookFor])) {
+                return $this->states[$country][$lookFor];
+            }
+        }
+    }
+
     protected function findCountryStates($country)
     {
         if (!array_key_exists($country, $this->states)) {
