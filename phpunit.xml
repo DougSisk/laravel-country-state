@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         bootstrap="phpunit.php"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnError="false"
+         stopOnFailure="false"
+         syntaxCheck="true"
+         verbose="true"
+>
+    <testsuites>
+        <testsuite name="CountryState Test Suite">
+            <file>tests/CountryStateTest.php</file>
+        </testsuite>
+        <testsuite name="CountryState Laravel Test Suite">
+            <file>tests/laravel/CountryStateLaravelTest.php</file>
+        </testsuite>
+    </testsuites>
+</phpunit>

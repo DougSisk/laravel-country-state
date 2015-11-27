@@ -4,7 +4,10 @@ php:
   - 5.4
   - 5.5
   - 5.6
+  - 7.0
   - hhvm
 
-before_script:
+install:
   - composer install --dev --prefer-source --no-interaction
+
+script: vendor/bin/phpunit
