@@ -1,5 +1,6 @@
 Laravel Country & State Helper
 ==============================
+[![Build Status](https://travis-ci.org/DougSisk/laravel-country-state.svg?branch=master)](https://travis-ci.org/DougSisk/laravel-country-state)
 [![Latest Stable Version](https://poser.pugx.org/dougsisk/laravel-country-state/version)](https://packagist.org/packages/dougsisk/laravel-country-state)
 [![Total Downloads](https://poser.pugx.org/dougsisk/laravel-country-state/downloads)](https://packagist.org/packages/dougsisk/laravel-country-state)
 [![License](https://poser.pugx.org/dougsisk/laravel-country-state/license)](https://packagist.org/packages/dougsisk/laravel-country-state)
