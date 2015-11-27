@@ -18,7 +18,7 @@ composer require dougsisk/laravel-country-state
 After updating composer, add the CountryStateServiceProvider to the providers array in config/app.php
 
 ```
-DougSisk\CountryState\CountryStateServiceProvider::class,
+'DougSisk\CountryState\CountryStateServiceProvider',
 ```
 
 Copy the package config to your local config with the publish command:
