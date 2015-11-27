@@ -46,14 +46,22 @@ class CountryState
     public function getStateName($lookFor, $country = null)
     {
         if ($country) {
+            if (!isset($this->states[$country])) {
+                $this->findCountryStates($country);
+            }
+
             if (isset($this->states[$country][$lookFor])) {
                 return $this->states[$country][$lookFor];
             }
+
+            return;
         }
 
-        foreach ($this->states as $country) {
-            if (isset($this->states[$country][$lookFor])) {
-                return $this->states[$country][$lookFor];
+        foreach ($this->countries as $countryCode => $countryName) {
+            $this->findCountryStates($countryCode);
+
+            if (isset($this->states[$countryCode][$lookFor])) {
+                return $this->states[$countryCode][$lookFor];
             }
         }
     }
