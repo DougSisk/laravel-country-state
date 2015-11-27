@@ -10,12 +10,12 @@ class CountryState
     protected $loader;
     protected $states = [];
 
-    public function __construct()
+    public function __construct($limitCountries = null, $preloadCountryStates = null)
     {
         $this->loader = new Loader;
 
-        if ($countries = config('countrystate.limitCountries')) {
-            foreach ($countries as $code) {
+        if ($limitCountries) {
+            foreach ($limitCountries as $code) {
                 $this->countries[$code] = $this->loader->loadCountry($code)->getShortName();
             }
         } else {
@@ -26,8 +26,8 @@ class CountryState
             }
         }
         
-        if ($preLoad = config('countrystate.preloadCountryStates')) {
-            foreach ($preLoad as $country) {
+        if ($preloadCountryStates) {
+            foreach ($preloadCountryStates as $country) {
                 $this->addCountryStates($country);
             }
         }

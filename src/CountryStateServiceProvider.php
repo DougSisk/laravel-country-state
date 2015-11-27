@@ -15,7 +15,7 @@ class CountryStateServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('CountryState', function () {
-            return new CountryState;
+            return new CountryState(config('countrystate.limitCountries'), config('countrystate.preloadCountryStates'));
         });
         $this->mergeConfigFrom(__DIR__ . '/config/countrystate.php', 'countrystate');
     }
