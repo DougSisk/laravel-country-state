@@ -25,7 +25,7 @@ After updating composer, add the CountryStateServiceProvider to the providers ar
 Copy the package config to your local config with the publish command:
 
 ```
-php artisan vendor:publish
+php artisan vendor:publish --provider="DougSisk\CountryState\CountryStateServiceProvider" --tag="config"
 ```
 
 Configuration

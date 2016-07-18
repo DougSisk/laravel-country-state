@@ -27,7 +27,7 @@ class CountryStateServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__ . '/config/countrystate.php' => config_path('countrystate.php'),
-        ]);
+        ], 'config');
 
         $routeConfig = [
             'namespace' => 'DougSisk\CountryState',
