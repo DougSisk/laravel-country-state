@@ -66,6 +66,30 @@ class CountryState
         }
     }
 
+    /**
+     * Pass a country code to search a single country or an array of codes to search several countries in the order given
+     * If $country is null all countries will be searched, which can be slow.
+     *
+     * @param string $lookFor
+     * @param mixed $country
+     * @return string|null
+     */
+    public function getStateCode($lookFor, $country = null)
+    {
+        $lookFor = mb_strtoupper($lookFor);
+        $countries = is_null($country) ? array_keys($this->countries) : (array)$country;
+
+        foreach ($countries as $countryCode) {
+            $states = array_map('mb_strtoupper', $this->findCountryStates($countryCode));
+
+            if ($code = array_search($lookFor, $states)) {
+                return $code;
+            }
+        }
+
+        return null;
+    }
+
     protected function findCountryStates($country)
     {
         if (!array_key_exists($country, $this->states)) {
