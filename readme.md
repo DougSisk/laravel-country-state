@@ -48,6 +48,12 @@ Usage
 
 You may now use the `CountryState` facade to access countries and states.
 
+**Remember to import the namespace to access the facade in your files:**
+
+```
+use CountryState;
+```
+
 To get an array of countries:
 
 ```
