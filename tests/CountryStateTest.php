@@ -45,17 +45,19 @@ class CountryStateTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Hawaii', $stateName);
     }
 
+    /**
+     * @expectedException DougSisk\CountryState\Exceptions\CountryNotFoundException
+     */
     public function testCountryNotFound()
     {
-        $this->expectException(CountryNotFoundException::class);
-
         $this->countryState->getStates('USA');
     }
 
+    /**
+     * @expectedException DougSisk\CountryState\Exceptions\StateNotFoundException
+     */
     public function testStateNotFound()
     {
-        $this->expectException(StateNotFoundException::class);
-
         $this->countryState->getStateName('AY', 'US');
     }
 
