@@ -8,6 +8,6 @@ php:
   - hhvm
 
 install:
-  - composer install --dev --prefer-source --no-interaction
+  - composer install --prefer-source --no-interaction
 
 script: vendor/bin/phpunit

@@ -12,6 +12,7 @@ What's Changed in 2.0
 
 * Replaced [`phine/country`](https://github.com/kherge-abandoned/lib-country) with [`rinvex/country`](https://github.com/rinvex/country)
 * Basic support for country name translations
+* Exceptions when implicitly loading fails for country or state
 * Removed HTTP helper to load states
 * Dropped Laravel 5.0 support
 
@@ -27,7 +28,7 @@ composer require dougsisk/laravel-country-state
 After updating composer, add the CountryStateServiceProvider to the providers array in config/app.php
 
 ```
-'DougSisk\CountryState\CountryStateServiceProvider',
+DougSisk\CountryState\CountryStateServiceProvider::class,
 ```
 
 Copy the package config to your local config with the publish command:

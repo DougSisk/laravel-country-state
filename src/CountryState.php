@@ -2,6 +2,7 @@
 
 namespace DougSisk\CountryState;
 
+use Exception;
 use Rinvex\Country\Country;
 use Rinvex\Country\Loader;
 
@@ -16,7 +17,8 @@ class CountryState
     {
         if ($limitCountries) {
             foreach ($limitCountries as $code) {
-                $country = Loader::country(mb_strtolower($code));
+                $country = $this->loadCountry($code);
+
                 $this->countries[$country->getIsoAlpha2()] = $country;
             }
         } else {
@@ -53,7 +55,7 @@ class CountryState
     public function getStateName($lookFor, $country = null)
     {
         if ($country) {
-            if (!isset($this->states[$country])) {
+            if (! isset($this->states[$country])) {
                 $this->findCountryStates($country);
             }
 
@@ -61,7 +63,7 @@ class CountryState
                 return $this->states[$country][$lookFor];
             }
 
-            return;
+            throw new Exceptions\StateNotFoundException;
         }
 
         foreach ($this->countries as $countryCode => $countryName) {
@@ -106,6 +108,15 @@ class CountryState
         return $this;
     }
 
+    protected function loadCountry($code)
+    {
+        try {
+            return Loader::country(mb_strtolower($code));
+        } catch (Exception $e) {
+            throw new Exceptions\CountryNotFoundException;
+        }
+    }
+
     protected function findCountryStates($country)
     {
         if (! array_key_exists($country, $this->states)) {
@@ -118,7 +129,7 @@ class CountryState
     protected function addCountryStates($country)
     {
         if (! $country instanceof Country) {
-            $country = Loader::country(mb_strtolower($country));
+            $country = $this->loadCountry($country);
         }
 
         $countryCode = $country->getIsoAlpha2();
