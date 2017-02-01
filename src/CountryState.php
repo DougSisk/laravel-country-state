@@ -16,7 +16,7 @@ class CountryState
     {
         if ($limitCountries) {
             foreach ($limitCountries as $code) {
-                $country = Loader::country($code);
+                $country = Loader::country(mb_strtolower($code));
                 $this->countries[$country->getIsoAlpha2()] = $country;
             }
         } else {
@@ -118,7 +118,7 @@ class CountryState
     protected function addCountryStates($country)
     {
         if (! $country instanceof Country) {
-            $country = Loader::country($country);
+            $country = Loader::country(mb_strtolower($country));
         }
 
         $countryCode = $country->getIsoAlpha2();
