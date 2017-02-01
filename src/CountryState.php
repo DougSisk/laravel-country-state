@@ -2,29 +2,32 @@
 
 namespace DougSisk\CountryState;
 
-use Phine\Country\Loader\Loader;
+use Rinvex\Country\Country;
+use Rinvex\Country\Loader;
 
 class CountryState
 {
-    protected $countries;
-    protected $loader;
+    protected $countries = [];
+    protected $countriesTranslated = [];
+    protected $language;
     protected $states = [];
 
-    public function __construct($limitCountries = null, $preloadCountryStates = null)
+    public function __construct($limitCountries = null, $preloadCountryStates = null, $language = 'eng')
     {
-        $this->loader = new Loader;
-
         if ($limitCountries) {
             foreach ($limitCountries as $code) {
-                $this->countries[$code] = $this->loader->loadCountry($code)->getShortName();
+                $country = Loader::country($code);
+                $this->countries[$country->getIsoAlpha2()] = $country;
             }
         } else {
-            $countries = $this->loader->loadCountries();
+            $countries = Loader::countries(true, true);
 
             foreach ($countries as $country) {
-                $this->countries[$country->getAlpha2Code()] = $country->getShortName();
+                $this->countries[$country->getIsoAlpha2()] = $country;
             }
         }
+
+        $this->setLanguage($language);
         
         if ($preloadCountryStates) {
             foreach ($preloadCountryStates as $country) {
@@ -33,9 +36,13 @@ class CountryState
         }
     }
 
-    public function getCountries()
+    public function getCountries($language = null)
     {
-        return $this->countries;
+        if ($language) {
+            $this->setLanguage($language);
+        }
+
+        return $this->countriesTranslated;
     }
 
     public function getStates($country)
@@ -77,7 +84,7 @@ class CountryState
     public function getStateCode($lookFor, $country = null)
     {
         $lookFor = mb_strtoupper($lookFor);
-        $countries = is_null($country) ? array_keys($this->countries) : (array)$country;
+        $countries = is_null($country) ? array_keys($this->countries) : (array) $country;
 
         foreach ($countries as $countryCode) {
             $states = array_map('mb_strtoupper', $this->findCountryStates($countryCode));
@@ -86,13 +93,22 @@ class CountryState
                 return $code;
             }
         }
+    }
 
-        return null;
+    public function setLanguage($language)
+    {
+        $this->language = $language;
+
+        foreach ($this->countries as $country) {
+            $this->countriesTranslated[$country->getIsoAlpha2()] = $country->getTranslation($this->language)['common'];
+        }
+
+        return $this;
     }
 
     protected function findCountryStates($country)
     {
-        if (!array_key_exists($country, $this->states)) {
+        if (! array_key_exists($country, $this->states)) {
             $this->addCountryStates($country);
         }
 
@@ -101,12 +117,18 @@ class CountryState
 
     protected function addCountryStates($country)
     {
-        $this->states[$country] = [];
-        $states = $this->loader->loadSubdivisions($country);
+        if (! $country instanceof Country) {
+            $country = Loader::country($country);
+        }
 
-        foreach ($states as $code => $subdivision) {
+        $countryCode = $country->getIsoAlpha2();
+
+        $this->states[$countryCode] = [];
+        $states = $country->getDivisions();
+
+        foreach ($states as $code => $division) {
             $code = preg_replace("/([A-Z]{2}-)/", '', $code);
-            $this->states[$country][$code] = $subdivision->getName();
+            $this->states[$countryCode][$code] = $division['name'];
         }
     }
 }

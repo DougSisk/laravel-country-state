@@ -16,7 +16,7 @@
     "require": {
         "php": ">=5.4.0",
         "illuminate/support": "~5.0",
-        "phine/country": "~1.0"
+        "rinvex/country": "~2.0|~3.0"
     },
     "require-dev": {
         "orchestra/testbench": "~3.0",
@@ -25,11 +25,6 @@
     "autoload": {
         "psr-4": {
             "DougSisk\\CountryState\\": "src/"
-        }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.1-dev"
         }
     }
 }
