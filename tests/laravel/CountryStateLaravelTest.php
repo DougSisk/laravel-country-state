@@ -1,10 +1,14 @@
 <?php
 
+use DougSisk\CountryState\CountryStateServiceProvider;
+use DougSisk\CountryState\Exceptions\CountryNotFoundException;
+use DougSisk\CountryState\Exceptions\StateNotFoundException;
+
 class CountryStateLaravelTest extends Orchestra\Testbench\TestCase
 {
     protected function getPackageProviders($app)
     {
-        return ['DougSisk\CountryState\CountryStateServiceProvider'];
+        return [CountryStateServiceProvider::class];
     }
 
     protected function getEnvironmentSetUp($app)
@@ -41,6 +45,20 @@ class CountryStateLaravelTest extends Orchestra\Testbench\TestCase
         $stateName = CountryState::getStateName('MB', 'CA');
 
         $this->assertEquals('Manitoba', $stateName);
+    }
+
+    public function testCountryNotFound()
+    {
+        $this->expectException(CountryNotFoundException::class);
+
+        CountryState::getStates('CAN');
+    }
+
+    public function testStateNotFound()
+    {
+        $this->expectException(StateNotFoundException::class);
+
+        CountryState::getStateName('AY', 'CA');
     }
 
     public function testGetTranslatedCountries()

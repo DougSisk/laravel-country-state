@@ -1,6 +1,8 @@
 <?php
 
 use DougSisk\CountryState\CountryState;
+use DougSisk\CountryState\Exceptions\CountryNotFoundException;
+use DougSisk\CountryState\Exceptions\StateNotFoundException;
 
 class CountryStateTest extends PHPUnit_Framework_TestCase
 {
@@ -41,6 +43,20 @@ class CountryStateTest extends PHPUnit_Framework_TestCase
         $stateName = $this->countryState->getStateName('HI', 'US');
 
         $this->assertEquals('Hawaii', $stateName);
+    }
+
+    public function testCountryNotFound()
+    {
+        $this->expectException(CountryNotFoundException::class);
+
+        $this->countryState->getStates('USA');
+    }
+
+    public function testStateNotFound()
+    {
+        $this->expectException(StateNotFoundException::class);
+
+        $this->countryState->getStateName('AY', 'US');
     }
 
     public function testGetTranslatedCountries()
