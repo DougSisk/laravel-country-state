@@ -5,7 +5,15 @@ Laravel Country & State Helper
 [![Total Downloads](https://poser.pugx.org/dougsisk/laravel-country-state/downloads)](https://packagist.org/packages/dougsisk/laravel-country-state)
 [![License](https://poser.pugx.org/dougsisk/laravel-country-state/license)](https://packagist.org/packages/dougsisk/laravel-country-state)
 
-A helper to list countries & states in English in **Laravel 5**.
+A helper to list countries & states in English in **Laravel 5.1+**.
+
+What's Changed in 2.0
+-----------------
+
+* Replaced [`phine/country`](https://github.com/kherge-abandoned/lib-country) with [`rinvex/country`](https://github.com/rinvex/country)
+* Basic support for country name translations
+* Removed HTTP helper to load states
+* Dropped Laravel 5.0 support
 
 Installation
 ------------
@@ -60,7 +68,7 @@ To get an array of countries:
 $countries = CountryState::getCountries();
 ```
 
-The array keys will be the countries' 2 letter ISO code and the values will be the countries' English name.
+The array keys will be the countries' 2 letter ISO code and the values will be the countries' English name. You may also set the 3 letter ISO key as the argument to receive translations of the countries' names (limited support).
 
 
 To get an array of a country's states, simply pass the country's 2 letter ISO code:
@@ -70,15 +78,6 @@ $states = CountryState::getStates('US');
 ```
 
 The array keys will be the states' 2 letter ISO code and the values will be the states' English name.
-
-HTTP JSON State Fetcher
------------------------
-
-Included is a route that you can use with JavaScript to get a list of a country's states. You could use this to update a state select box on a country select box change.
-
-To use, simply send a request to `/country-state/get-states/{code}`, and replace `{code}` with the 2 letter ISO code of the country you wish to fetch. It will return a JSON array if states for the country found and null if none are.
-
-You may update the `country-state` prefix with the `routePrefix` configuration option.
 
 License
 -------
