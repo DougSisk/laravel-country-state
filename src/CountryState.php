@@ -2,29 +2,42 @@
 
 namespace DougSisk\CountryState;
 
-use Phine\Country\Loader\Loader;
+use Exception;
+use Rinvex\Country\Country;
+use Rinvex\Country\Loader;
 
 class CountryState
 {
-    protected $countries;
-    protected $loader;
+    protected $countries = [];
+    protected $countriesTranslated = [];
+    protected $language;
     protected $states = [];
 
-    public function __construct($limitCountries = null, $preloadCountryStates = null)
+    /**
+     * Create a new country state helper instance.
+     *
+     * @param  array $limitCountries
+     * @param  array $preloadCountryStates
+     * @param  string $language
+     * @return void
+     */
+    public function __construct($limitCountries = null, $preloadCountryStates = null, $language = 'eng')
     {
-        $this->loader = new Loader;
-
         if ($limitCountries) {
             foreach ($limitCountries as $code) {
-                $this->countries[$code] = $this->loader->loadCountry($code)->getShortName();
+                $country = $this->loadCountry($code);
+
+                $this->countries[$country->getIsoAlpha2()] = $country;
             }
         } else {
-            $countries = $this->loader->loadCountries();
+            $countries = Loader::countries(true, true);
 
             foreach ($countries as $country) {
-                $this->countries[$country->getAlpha2Code()] = $country->getShortName();
+                $this->countries[$country->getIsoAlpha2()] = $country;
             }
         }
+
+        $this->setLanguage($language);
         
         if ($preloadCountryStates) {
             foreach ($preloadCountryStates as $country) {
@@ -33,20 +46,47 @@ class CountryState
         }
     }
 
-    public function getCountries()
+    /**
+     * Get a list of countries. If class has been constructed to limit countries, only those countries will be returned.
+     * The array returned will be countries' names in the class' set language.
+     * If a different language is desired, pass the three character ISO 639-3 code of the desired language
+     *
+     * @param string $language
+     * @return array
+     */
+    public function getCountries($language = null)
     {
-        return $this->countries;
+        if ($language) {
+            $this->setLanguage($language);
+        }
+
+        return $this->countriesTranslated;
     }
 
+    /**
+     * Get a list of states for a given country.
+     * The country's two character ISO code
+     *
+     * @param string $country
+     * @return array
+     */
     public function getStates($country)
     {
         return $this->findCountryStates($country);
     }
 
+    /**
+     * Get the name of a state by passing its two character code
+     * Specifying a two character ISO country code will limit the search to a specific country
+     *
+     * @param string $lookFor
+     * @param string $country
+     * @return string
+     */
     public function getStateName($lookFor, $country = null)
     {
         if ($country) {
-            if (!isset($this->states[$country])) {
+            if (! isset($this->states[$country])) {
                 $this->findCountryStates($country);
             }
 
@@ -54,7 +94,7 @@ class CountryState
                 return $this->states[$country][$lookFor];
             }
 
-            return;
+            throw new Exceptions\StateNotFoundException;
         }
 
         foreach ($this->countries as $countryCode => $countryName) {
@@ -72,12 +112,12 @@ class CountryState
      *
      * @param string $lookFor
      * @param mixed $country
-     * @return string|null
+     * @return string|void
      */
     public function getStateCode($lookFor, $country = null)
     {
         $lookFor = mb_strtoupper($lookFor);
-        $countries = is_null($country) ? array_keys($this->countries) : (array)$country;
+        $countries = is_null($country) ? array_keys($this->countries) : (array) $country;
 
         foreach ($countries as $countryCode) {
             $states = array_map('mb_strtoupper', $this->findCountryStates($countryCode));
@@ -86,13 +126,38 @@ class CountryState
                 return $code;
             }
         }
+    }
 
-        return null;
+    /**
+     * Change the default translation language using the three character ISO 639-3 code of the desired language.
+     * Country name translations will be reloaded.
+     *
+     * @param string $language
+     * @return $this
+     */
+    public function setLanguage($language)
+    {
+        $this->language = $language;
+
+        foreach ($this->countries as $country) {
+            $this->countriesTranslated[$country->getIsoAlpha2()] = $country->getTranslation($this->language)['common'];
+        }
+
+        return $this;
+    }
+
+    protected function loadCountry($code)
+    {
+        try {
+            return Loader::country(mb_strtolower($code));
+        } catch (Exception $e) {
+            throw new Exceptions\CountryNotFoundException;
+        }
     }
 
     protected function findCountryStates($country)
     {
-        if (!array_key_exists($country, $this->states)) {
+        if (! array_key_exists($country, $this->states)) {
             $this->addCountryStates($country);
         }
 
@@ -101,12 +166,18 @@ class CountryState
 
     protected function addCountryStates($country)
     {
-        $this->states[$country] = [];
-        $states = $this->loader->loadSubdivisions($country);
+        if (! $country instanceof Country) {
+            $country = $this->loadCountry($country);
+        }
 
-        foreach ($states as $code => $subdivision) {
+        $countryCode = $country->getIsoAlpha2();
+
+        $this->states[$countryCode] = [];
+        $states = $country->getDivisions();
+
+        foreach ($states as $code => $division) {
             $code = preg_replace("/([A-Z]{2}-)/", '', $code);
-            $this->states[$country][$code] = $subdivision->getName();
+            $this->states[$countryCode][$code] = $division['name'];
         }
     }
 }

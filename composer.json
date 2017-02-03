@@ -1,6 +1,6 @@
 {
     "name": "dougsisk/laravel-country-state",
-    "description": "Country & state helper for Laravel 5.",
+    "description": "Country & state helper for Laravel 5.1+.",
     "keywords": ["countries","country","laravel","state","states"],
     "homepage": "https://github.com/DougSisk/laravel-country-state",
     "license": "MIT",
@@ -14,22 +14,17 @@
         "issues": "https://github.com/DougSisk/laravel-country-state/issues"
     },
     "require": {
-        "php": ">=5.4.0",
-        "illuminate/support": "~5.0",
-        "phine/country": "~1.0"
+        "php": ">=7.0",
+        "illuminate/support": "~5.1",
+        "rinvex/country": "~3.0"
     },
     "require-dev": {
         "orchestra/testbench": "~3.0",
-        "phpunit/phpunit": "~4.0|~5.0"
+        "phpunit/phpunit": "~5.0"
     },
     "autoload": {
         "psr-4": {
             "DougSisk\\CountryState\\": "src/"
-        }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.1-dev"
         }
     }
 }
