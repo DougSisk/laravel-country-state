@@ -13,6 +13,14 @@ class CountryState
     protected $language;
     protected $states = [];
 
+    /**
+     * Create a new country state helper instance.
+     *
+     * @param  array $limitCountries
+     * @param  array $preloadCountryStates
+     * @param  string $language
+     * @return void
+     */
     public function __construct($limitCountries = null, $preloadCountryStates = null, $language = 'eng')
     {
         if ($limitCountries) {
@@ -38,6 +46,14 @@ class CountryState
         }
     }
 
+    /**
+     * Get a list of countries. If class has been constructed to limit countries, only those countries will be returned.
+     * The array returned will be countries' names in the class' set language.
+     * If a different language is desired, pass the three character ISO 639-3 code of the desired language
+     *
+     * @param string $language
+     * @return array
+     */
     public function getCountries($language = null)
     {
         if ($language) {
@@ -47,11 +63,26 @@ class CountryState
         return $this->countriesTranslated;
     }
 
+    /**
+     * Get a list of states for a given country.
+     * The country's two character ISO code
+     *
+     * @param string $country
+     * @return array
+     */
     public function getStates($country)
     {
         return $this->findCountryStates($country);
     }
 
+    /**
+     * Get the name of a state by passing its two character code
+     * Specifying a two character ISO country code will limit the search to a specific country
+     *
+     * @param string $lookFor
+     * @param string $country
+     * @return string
+     */
     public function getStateName($lookFor, $country = null)
     {
         if ($country) {
@@ -81,7 +112,7 @@ class CountryState
      *
      * @param string $lookFor
      * @param mixed $country
-     * @return string|null
+     * @return string|void
      */
     public function getStateCode($lookFor, $country = null)
     {
@@ -97,6 +128,13 @@ class CountryState
         }
     }
 
+    /**
+     * Change the default translation language using the three character ISO 639-3 code of the desired language.
+     * Country name translations will be reloaded.
+     *
+     * @param string $language
+     * @return $this
+     */
     public function setLanguage($language)
     {
         $this->language = $language;
