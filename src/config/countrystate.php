@@ -9,7 +9,7 @@ return [
     |
     | Limited translations of countries are supported.
     | By default, English is used.
-    | To use another language, use the three-letter
+    | To use another language, use the three character
     | ISO 639-3 code.
     | Example: 'spa'
     |

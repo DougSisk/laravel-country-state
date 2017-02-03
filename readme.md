@@ -10,11 +10,12 @@ A helper to list countries & states in English in **Laravel 5.1+**.
 What's Changed in 2.0
 -----------------
 
+* **PHP 7+ required**
+* Dropped Laravel 5.0 support
 * Replaced [`phine/country`](https://github.com/kherge-abandoned/lib-country) with [`rinvex/country`](https://github.com/rinvex/country)
 * Basic support for country name translations
 * Exceptions when implicitly loading fails for country or state
 * Removed HTTP helper to load states
-* Dropped Laravel 5.0 support
 
 Installation
 ------------
