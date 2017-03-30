@@ -4,7 +4,7 @@ namespace DougSisk\CountryState;
 
 use Exception;
 use Rinvex\Country\Country;
-use Rinvex\Country\Loader;
+use Rinvex\Country\CountryLoader;
 
 class CountryState
 {
@@ -30,7 +30,7 @@ class CountryState
                 $this->countries[$country->getIsoAlpha2()] = $country;
             }
         } else {
-            $countries = Loader::countries(true, true);
+            $countries = CountryLoader::countries(true, true);
 
             foreach ($countries as $country) {
                 $this->countries[$country->getIsoAlpha2()] = $country;
@@ -149,7 +149,7 @@ class CountryState
     protected function loadCountry($code)
     {
         try {
-            return Loader::country(mb_strtolower($code));
+            return CountryLoader::country(mb_strtolower($code));
         } catch (Exception $e) {
             throw new Exceptions\CountryNotFoundException;
         }
