@@ -4,7 +4,7 @@ namespace DougSisk\CountryState;
 
 use Exception;
 use Rinvex\Country\Country;
-use Rinvex\Country\Loader;
+use Rinvex\Country\CountryLoader as Loader;
 
 class CountryState
 {
