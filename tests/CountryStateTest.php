@@ -31,6 +31,13 @@ class CountryStateTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Hawaii', $states['HI']);
     }
 
+    public function testGetCountryStatesForCountriesWithoutStates()
+    {
+        $states = $this->countryState->getStates('AW');
+
+        $this->assertEmpty($states);
+    }
+
     public function testGetStateCode()
     {
         $stateCode = $this->countryState->getStateCode('Hawaii', 'US');
