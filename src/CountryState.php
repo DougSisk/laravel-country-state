@@ -38,7 +38,7 @@ class CountryState
         }
 
         $this->setLanguage($language);
-        
+
         if ($preloadCountryStates) {
             foreach ($preloadCountryStates as $country) {
                 $this->addCountryStates($country);
@@ -175,9 +175,11 @@ class CountryState
         $this->states[$countryCode] = [];
         $states = $country->getDivisions();
 
-        foreach ($states as $code => $division) {
-            $code = preg_replace("/([A-Z]{2}-)/", '', $code);
-            $this->states[$countryCode][$code] = $division['name'];
+        if( !is_null($states) ) {
+            foreach ($states as $code => $division) {
+                $code = preg_replace("/([A-Z]{2}-)/", '', $code);
+                $this->states[$countryCode][$code] = $division['name'];
+            }
         }
     }
 }
