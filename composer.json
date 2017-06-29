@@ -26,5 +26,12 @@
         "psr-4": {
             "DougSisk\\CountryState\\": "src/"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "DougSisk\\CountryState\\CountryStateServiceProvider"
+            ]
+        }
     }
 }
