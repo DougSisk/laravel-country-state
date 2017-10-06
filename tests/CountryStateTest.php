@@ -23,6 +23,16 @@ class CountryStateTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('United States', $countries['US']);
     }
 
+    public function testGetCountry()
+    {
+        $this->assertInstanceOf('Rinvex\Country\Country', $this->countryState->getCountry('ca'));
+    }
+
+    public function testGetCountryName()
+    {
+        $this->assertEquals('Canada', $this->countryState->getCountryName('ca'));
+    }
+
     public function testGetCountryStates()
     {
         $states = $this->countryState->getStates('US');

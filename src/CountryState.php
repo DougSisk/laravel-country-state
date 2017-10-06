@@ -64,6 +64,28 @@ class CountryState
     }
 
     /**
+     * Get the information of a country by passing its two character code
+     *
+     * @param string $lookFor
+     * @return Rinvex\Country\Country
+     */
+    public function getCountry($lookFor)
+    {
+        return $this->loadCountry($lookFor);
+    }
+
+    /**
+     * Get the name of a country by passing its two character code
+     *
+     * @param string $lookFor
+     * @return string
+     */
+    public function getCountryName($lookFor)
+    {
+        return $this->getCountry($lookFor)->getName();
+    }
+
+    /**
      * Get a list of states for a given country.
      * The country's two character ISO code
      *
