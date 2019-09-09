@@ -1,6 +1,6 @@
 {
     "name": "dougsisk/laravel-country-state",
-    "description": "Country & state helper for Laravel 6.0+.",
+    "description": "Country & state helper for Laravel.",
     "keywords": ["countries","country","laravel","state","states"],
     "homepage": "https://github.com/DougSisk/laravel-country-state",
     "license": "MIT",
