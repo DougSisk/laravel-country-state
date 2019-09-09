@@ -6,17 +6,13 @@ Laravel Country & State Helper
 [![Total Downloads](https://poser.pugx.org/dougsisk/laravel-country-state/downloads)](https://packagist.org/packages/dougsisk/laravel-country-state)
 [![License](https://poser.pugx.org/dougsisk/laravel-country-state/license)](https://packagist.org/packages/dougsisk/laravel-country-state)
 
-A helper to list countries & states in English in **Laravel 5.1+**.
+A helper to list countries & states in English in **Laravel 6.0+**.
 
-What's Changed in 2.0
+What's Changed in 3.0
 -----------------
 
-* **PHP 7+ required**
-* Dropped Laravel 5.0 support
-* Replaced [`phine/country`](https://github.com/kherge-abandoned/lib-country) with [`rinvex/country`](https://github.com/rinvex/country)
-* Basic support for country name translations
-* Exceptions when implicitly loading fails for country or state
-* Removed HTTP helper to load states
+* **PHP 7.2+ required**
+* Dropped Laravel 5.x support
 
 Installation
 ------------
@@ -25,6 +21,12 @@ Require this package with composer:
 
 ```
 composer require dougsisk/laravel-country-state
+```
+
+Still using Laravel 5.1-5.8? Use version 2:
+
+```
+composer require "dougsisk/laravel-country-state:^2.0"
 ```
 
 After updating composer, add the CountryStateServiceProvider to the providers array in config/app.php (not required for Laravel 5.5+ thanks to package auto-discovery)
