@@ -1,18 +1,16 @@
 Laravel Country & State Helper
 ==============================
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/ea4f379e-b76f-46b0-942c-6aa0ff457100/mini.png)](https://insight.sensiolabs.com/projects/ea4f379e-b76f-46b0-942c-6aa0ff457100)
-[![Build Status](https://travis-ci.org/DougSisk/laravel-country-state.svg?branch=master)](https://travis-ci.org/DougSisk/laravel-country-state)
 [![Latest Stable Version](https://poser.pugx.org/dougsisk/laravel-country-state/version)](https://packagist.org/packages/dougsisk/laravel-country-state)
 [![Total Downloads](https://poser.pugx.org/dougsisk/laravel-country-state/downloads)](https://packagist.org/packages/dougsisk/laravel-country-state)
 [![License](https://poser.pugx.org/dougsisk/laravel-country-state/license)](https://packagist.org/packages/dougsisk/laravel-country-state)
 
 A helper to list countries & states in English in **Laravel 6.0+**. *Laravel 5.1-5.8 supported in version 2 (see below).*
 
-What's Changed in 3.0
+What's Changed in 4.0
 -----------------
 
-* **PHP 7.2+ required**
-* Dropped Laravel 5.x support
+* **PHP 7.4+ required**
 
 Installation
 ------------
@@ -23,7 +21,13 @@ Require this package with composer:
 composer require dougsisk/laravel-country-state
 ```
 
-Still using Laravel 5.1-5.8? Use version 2:
+Still using PHP 7.3 or below? Use version 3 (unsupported):
+
+```
+composer require "dougsisk/laravel-country-state:^3.0"
+```
+
+Still using Laravel 5.1-5.8? Use version 2 (unsupported):
 
 ```
 composer require "dougsisk/laravel-country-state:^2.0"
