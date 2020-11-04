@@ -21,7 +21,7 @@ class CountryStateLaravelTest extends Orchestra\Testbench\TestCase
     {
         $countries = CountryState::getCountries();
 
-        $this->assertRegExp("/([A-Z]{2})/", key($countries));
+        $this->assertMatchesRegularExpression("/([A-Z]{2})/", key($countries));
         $this->assertEquals('Canada', $countries['CA']);
     }
 
@@ -29,7 +29,7 @@ class CountryStateLaravelTest extends Orchestra\Testbench\TestCase
     {
         $states = CountryState::getStates('CA');
 
-        $this->assertRegExp("/([A-Z]{2})/", key($states));
+        $this->assertMatchesRegularExpression("/([A-Z]{2})/", key($states));
         $this->assertEquals('Manitoba', $states['MB']);
     }
 

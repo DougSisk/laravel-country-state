@@ -20,7 +20,7 @@ class CountryStateTest extends TestCase
     {
         $countries = $this->countryState->getCountries();
 
-        $this->assertRegExp("/([A-Z]{2})/", key($countries));
+        $this->assertMatchesRegularExpression("/([A-Z]{2})/", key($countries));
         $this->assertEquals('United States', $countries['US']);
     }
 
@@ -38,7 +38,7 @@ class CountryStateTest extends TestCase
     {
         $states = $this->countryState->getStates('US');
 
-        $this->assertRegExp("/([A-Z]{2})/", key($states));
+        $this->assertMatchesRegularExpression("/([A-Z]{2})/", key($states));
         $this->assertEquals('Hawaii', $states['HI']);
     }
 
