@@ -38,7 +38,7 @@ class CountryState
         }
 
         $this->setLanguage($language);
-        
+
         if ($preloadCountryStates) {
             foreach ($preloadCountryStates as $country) {
                 $this->addCountryStates($country);
@@ -61,6 +61,28 @@ class CountryState
         }
 
         return $this->countriesTranslated;
+    }
+
+    /**
+     * Get the information of a country by passing its two character code
+     *
+     * @param string $lookFor
+     * @return Rinvex\Country\Country
+     */
+    public function getCountry($lookFor)
+    {
+        return $this->loadCountry($lookFor);
+    }
+
+    /**
+     * Get the name of a country by passing its two character code
+     *
+     * @param string $lookFor
+     * @return string
+     */
+    public function getCountryName($lookFor)
+    {
+        return $this->getCountry($lookFor)->getName();
     }
 
     /**
@@ -175,9 +197,11 @@ class CountryState
         $this->states[$countryCode] = [];
         $states = $country->getDivisions();
 
-        foreach ($states as $code => $division) {
-            $code = preg_replace("/([A-Z]{2}-)/", '', $code);
-            $this->states[$countryCode][$code] = $division['name'];
+        if( !is_null($states) ) {
+            foreach ($states as $code => $division) {
+                $code = preg_replace("/([A-Z]{2}-)/", '', $code);
+                $this->states[$countryCode][$code] = $division['name'];
+            }
         }
     }
 }
