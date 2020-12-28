@@ -21,7 +21,7 @@ Require this package with composer:
 composer require dougsisk/laravel-country-state
 ```
 
-After updating composer, add the CountryStateServiceProvider to the providers array in config/app.php (not required for Laravel 5.5+ thanks to package auto-discovery)
+This package will automatically be discovered by Laravel, if enabled. If you don't have auto package discovery on, you'll need to add the following service provider to your config/app.php:
 
 ```
 DougSisk\CountryState\CountryStateServiceProvider::class,
