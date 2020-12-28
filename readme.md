@@ -10,7 +10,7 @@ A helper to list countries & states in English in **Laravel 6.0+**. *Laravel 5.1
 What's Changed in 4.0
 -----------------
 
-* **PHP 7.4+ required**
+* **PHP 7.4+ or 8.0+ required**
 
 Installation
 ------------
