@@ -21,18 +21,6 @@ Require this package with composer:
 composer require dougsisk/laravel-country-state
 ```
 
-Still using PHP 7.3 or below? Use version 3 (unsupported):
-
-```
-composer require "dougsisk/laravel-country-state:^3.0"
-```
-
-Still using Laravel 5.1-5.8? Use version 2 (unsupported):
-
-```
-composer require "dougsisk/laravel-country-state:^2.0"
-```
-
 After updating composer, add the CountryStateServiceProvider to the providers array in config/app.php (not required for Laravel 5.5+ thanks to package auto-discovery)
 
 ```
