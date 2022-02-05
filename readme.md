@@ -1,6 +1,5 @@
 Laravel Country & State Helper
 ==============================
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/ea4f379e-b76f-46b0-942c-6aa0ff457100/mini.png)](https://insight.sensiolabs.com/projects/ea4f379e-b76f-46b0-942c-6aa0ff457100)
 [![Latest Stable Version](https://poser.pugx.org/dougsisk/laravel-country-state/version)](https://packagist.org/packages/dougsisk/laravel-country-state)
 [![Total Downloads](https://poser.pugx.org/dougsisk/laravel-country-state/downloads)](https://packagist.org/packages/dougsisk/laravel-country-state)
 [![License](https://poser.pugx.org/dougsisk/laravel-country-state/license)](https://packagist.org/packages/dougsisk/laravel-country-state)
