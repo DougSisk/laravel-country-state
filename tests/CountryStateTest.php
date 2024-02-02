@@ -1,64 +1,53 @@
 <?php
 
 use DougSisk\CountryState\CountryState;
-use DougSisk\CountryState\Exceptions\CountryNotFoundException;
-use DougSisk\CountryState\Exceptions\StateNotFoundException;
 use PHPUnit\Framework\TestCase;
 
 class CountryStateTest extends TestCase
 {
-    private $countryState;
-
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->countryState = new CountryState;
-    }
-
     public function testGetCountries()
     {
-        $countries = $this->countryState->getCountries();
+        $countries = (new CountryState())->getCountries();
 
-        $this->assertMatchesRegularExpression("/([A-Z]{2})/", key($countries));
+        $this->assertMatchesRegularExpression('/([A-Z]{2})/', key($countries));
         $this->assertEquals('United States', $countries['US']);
     }
 
     public function testGetCountry()
     {
-        $this->assertInstanceOf('Rinvex\Country\Country', $this->countryState->getCountry('ca'));
+        $this->assertInstanceOf('Rinvex\Country\Country', (new CountryState())->getCountry('ca'));
     }
 
     public function testGetCountryName()
     {
-        $this->assertEquals('Canada', $this->countryState->getCountryName('ca'));
+        $this->assertEquals('Canada', (new CountryState())->getCountryName('ca'));
     }
 
     public function testGetCountryStates()
     {
-        $states = $this->countryState->getStates('US');
+        $states = (new CountryState())->getStates('US');
 
-        $this->assertMatchesRegularExpression("/([A-Z]{2})/", key($states));
+        $this->assertMatchesRegularExpression('/([A-Z]{2})/', key($states));
         $this->assertEquals('Hawaii', $states['HI']);
     }
 
     public function testGetCountryStatesForCountriesWithoutStates()
     {
-        $states = $this->countryState->getStates('AW');
+        $states = (new CountryState())->getStates('AW');
 
         $this->assertEmpty($states);
     }
 
     public function testGetStateCode()
     {
-        $stateCode = $this->countryState->getStateCode('Hawaii', 'US');
+        $stateCode = (new CountryState())->getStateCode('Hawaii', 'US');
 
         $this->assertEquals('HI', $stateCode);
     }
 
     public function testGetStateName()
     {
-        $stateName = $this->countryState->getStateName('HI', 'US');
+        $stateName = (new CountryState())->getStateName('HI', 'US');
 
         $this->assertEquals('Hawaii', $stateName);
     }
@@ -67,19 +56,19 @@ class CountryStateTest extends TestCase
     {
         $this->expectException(\DougSisk\CountryState\Exceptions\CountryNotFoundException::class);
 
-        $this->countryState->getStates('USA');
+        (new CountryState())->getStates('USA');
     }
 
     public function testStateNotFound()
     {
         $this->expectException(\DougSisk\CountryState\Exceptions\StateNotFoundException::class);
 
-        $this->countryState->getStateName('AY', 'US');
+        (new CountryState())->getStateName('AY', 'US');
     }
 
     public function testGetTranslatedCountries()
     {
-        $translatedCountries = $this->countryState->getCountries('spa');
+        $translatedCountries = (new CountryState())->getCountries('spa');
 
         $this->assertEquals('Estados Unidos', $translatedCountries['US']);
     }
