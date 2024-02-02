@@ -35,7 +35,7 @@ jobs:
           }
         ]
         
-    name: PHP ${{ matrix.php }} tests
+    name: PHP ${{ matrix.php.version }} tests
     steps:
       -  uses: actions/checkout@v4
       
