@@ -22,7 +22,7 @@
     "require": {
         "php": "^8.2",
         "illuminate/support": "^11.0|^12.0",
-        "rinvex/countries": "^8.0"
+        "rinvex/countries": "^9.0"
     },
     "require-dev": {
         "orchestra/testbench": "^9.0|^10.0",
