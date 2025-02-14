@@ -12,37 +12,16 @@ jobs:
 
     strategy:
       matrix:
-        php: [
-          {
-            version: 7.4,
-            phpunitConfig: phpunit.xml
-          },
-          {
-            version: 8.0,
-            phpunitConfig: phpunit.xml
-          },
-          {
-            version: 8.1,
-            phpunitConfig: phpunit.xml
-          },
-          {
-            version: 8.2,
-            phpunitConfig: phpunit-new.xml
-          },
-          {
-            version: 8.3,
-            phpunitConfig: phpunit-new.xml
-          }
-        ]
+        php: [8.2, 8.3, 8.4]
         
-    name: PHP ${{ matrix.php.version }} tests
+    name: PHP ${{ matrix.php }} tests
     steps:
       -  uses: actions/checkout@v4
       
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php.version }}
+          php-version: ${{ matrix.php }}
           coverage: none
         
       - name: Validate composer.json and composer.lock
@@ -52,4 +31,4 @@ jobs:
         run: composer install --prefer-dist --no-progress --no-suggest
         
       - name: Run test suite
-        run: vendor/bin/phpunit --configuration ${{ matrix.php.phpunitConfig }}
+        run: vendor/bin/phpunit

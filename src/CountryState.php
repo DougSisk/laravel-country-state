@@ -8,20 +8,18 @@ use Rinvex\Country\CountryLoader;
 
 class CountryState
 {
-    protected $countries = [];
-    protected $countriesTranslated = [];
-    protected $language;
-    protected $states = [];
+    protected array $countries = [];
+
+    protected array $countriesTranslated = [];
+
+    protected string $language;
+
+    protected array $states = [];
 
     /**
      * Create a new country state helper instance.
-     *
-     * @param  array $limitCountries
-     * @param  array $preloadCountryStates
-     * @param  string $language
-     * @return void
      */
-    public function __construct($limitCountries = null, $preloadCountryStates = null, $language = 'eng')
+    public function __construct(?array $limitCountries = null, ?array $preloadCountryStates = null, string $language = 'eng')
     {
         if ($limitCountries) {
             foreach ($limitCountries as $code) {
@@ -50,11 +48,8 @@ class CountryState
      * Get a list of countries. If class has been constructed to limit countries, only those countries will be returned.
      * The array returned will be countries' names in the class' set language.
      * If a different language is desired, pass the three character ISO 639-3 code of the desired language
-     *
-     * @param string $language
-     * @return array
      */
-    public function getCountries($language = null)
+    public function getCountries(?string $language = null): array
     {
         if ($language) {
             $this->setLanguage($language);
@@ -65,22 +60,16 @@ class CountryState
 
     /**
      * Get the information of a country by passing its two character code
-     *
-     * @param string $lookFor
-     * @return Rinvex\Country\Country
      */
-    public function getCountry($lookFor)
+    public function getCountry(string $lookFor): Country
     {
         return $this->loadCountry($lookFor);
     }
 
     /**
      * Get the name of a country by passing its two character code
-     *
-     * @param string $lookFor
-     * @return string
      */
-    public function getCountryName($lookFor)
+    public function getCountryName(string $lookFor): string
     {
         return $this->getCountry($lookFor)->getName();
     }
@@ -88,11 +77,8 @@ class CountryState
     /**
      * Get a list of states for a given country.
      * The country's two character ISO code
-     *
-     * @param string $country
-     * @return array
      */
-    public function getStates($country)
+    public function getStates(string $country): array
     {
         return $this->findCountryStates($country);
     }
@@ -100,12 +86,8 @@ class CountryState
     /**
      * Get the name of a state by passing its two character code
      * Specifying a two character ISO country code will limit the search to a specific country
-     *
-     * @param string $lookFor
-     * @param string $country
-     * @return string
      */
-    public function getStateName($lookFor, $country = null)
+    public function getStateName(string $lookFor, ?string $country = null): string
     {
         if ($country) {
             if (! isset($this->states[$country])) {
@@ -130,16 +112,17 @@ class CountryState
 
     /**
      * Pass a country code to search a single country or an array of codes to search several countries in the order given
-     * If $country is null all countries will be searched, which can be slow.
-     *
-     * @param string $lookFor
-     * @param mixed $country
-     * @return string|void
+     * If $countries is null all countries will be searched, which can be slow.
      */
-    public function getStateCode($lookFor, $country = null)
+    public function getStateCode(string $lookFor, null|string|array $countries = null): ?string
     {
         $lookFor = mb_strtoupper($lookFor);
-        $countries = is_null($country) ? array_keys($this->countries) : (array) $country;
+
+        if (is_null($countries)) {
+            $countries = array_keys($this->countries);
+        } elseif (is_string($countries)) {
+            $countries = [$countries];
+        }
 
         foreach ($countries as $countryCode) {
             $states = array_map('mb_strtoupper', $this->findCountryStates($countryCode));
@@ -148,16 +131,15 @@ class CountryState
                 return $code;
             }
         }
+
+        return null;
     }
 
     /**
      * Change the default translation language using the three character ISO 639-3 code of the desired language.
      * Country name translations will be reloaded.
-     *
-     * @param string $language
-     * @return $this
      */
-    public function setLanguage($language)
+    public function setLanguage(string $language): self
     {
         $this->language = $language;
 
@@ -168,7 +150,7 @@ class CountryState
         return $this;
     }
 
-    protected function loadCountry($code)
+    protected function loadCountry($code): Country
     {
         try {
             return CountryLoader::country(mb_strtolower($code));
@@ -177,7 +159,7 @@ class CountryState
         }
     }
 
-    protected function findCountryStates($country)
+    protected function findCountryStates($country): array
     {
         if (! array_key_exists($country, $this->states)) {
             $this->addCountryStates($country);
@@ -186,7 +168,7 @@ class CountryState
         return $this->states[$country];
     }
 
-    protected function addCountryStates($country)
+    protected function addCountryStates($country): void
     {
         if (! $country instanceof Country) {
             $country = $this->loadCountry($country);
@@ -197,9 +179,9 @@ class CountryState
         $this->states[$countryCode] = [];
         $states = $country->getDivisions();
 
-        if( !is_null($states) ) {
+        if (! is_null($states)) {
             foreach ($states as $code => $division) {
-                $code = preg_replace("/([A-Z]{2}-)/", '', $code);
+                $code = preg_replace('/([A-Z]{2}-)/', '', $code);
                 $this->states[$countryCode][$code] = $division['name'];
             }
         }

@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit backupGlobals="false"
-         backupStaticAttributes="false"
-         bootstrap="vendor/autoload.php"
-         colors="true"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         processIsolation="false"
-         stopOnFailure="false">
-    <testsuites>
-        <testsuite name="CountryState Test Suite">
-            <file>tests/CountryStateTest.php</file>
-        </testsuite>
-        <testsuite name="CountryState Laravel Test Suite">
-            <file>tests/laravel/CountryStateLaravelTest.php</file>
-        </testsuite>
-    </testsuites>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.1/phpunit.xsd" bootstrap="vendor/autoload.php" colors="true">
+  <testsuites>
+    <testsuite name="CountryState Test Suite">
+      <file>tests/CountryStateTest.php</file>
+    </testsuite>
+    <testsuite name="CountryState Laravel Test Suite">
+      <file>tests/laravel/CountryStateLaravelTest.php</file>
+    </testsuite>
+  </testsuites>
 </phpunit>

@@ -4,12 +4,14 @@ Laravel Country & State Helper
 [![Total Downloads](https://poser.pugx.org/dougsisk/laravel-country-state/downloads)](https://packagist.org/packages/dougsisk/laravel-country-state)
 [![License](https://poser.pugx.org/dougsisk/laravel-country-state/license)](https://packagist.org/packages/dougsisk/laravel-country-state)
 
-A helper to list countries & states in English in **Laravel 6.0+**.
+A helper to list countries & states in English in **Laravel 11.0+**.
 
-What's Changed in 4.0
+What's Changed in 5.0
 -----------------
 
-* **PHP 7.4+ or 8.0+ required**
+* **PHP 8.2+ required**
+
+_I'm aware the underlying country/state data package I utilize has not been actively maintained. I've looked into other packages, but have yet to find one that can easily be swapped in. Please feel free to submit a PR if you find one you think is a suitable replacement._
 
 Installation
 ------------
